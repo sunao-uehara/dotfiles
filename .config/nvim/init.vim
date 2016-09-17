@@ -1,17 +1,22 @@
 set encoding=utf-8
 set history=700
 
-syntax enable
-colorscheme molokai
+syntax on
+colorscheme mymonokai
 let g:rehash256 = 1
 let g:molokai_original = 1
+
+filetype on
+filetype plugin on
+filetype indent on
+syntax on
 
 set number
 set ruler
 set hlsearch
 set incsearch
 
-set ts=2 sw=2 sts=2
+set ts=4 sw=4 sts=4
 set expandtab
 
 set ai
@@ -22,6 +27,18 @@ set guioptions-=T "toolbar
 set guioptions-=r "scrollbar
 
 set nocompatible
+
+"set <Leader>
+let mapleader = "\<Space>"
+
+" save yank to clipboard
+set clipboard=unnamed
+
+" code folding
+set foldmethod=indent   "fold based on indent
+set foldnestmax=10      "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=1         "this is just what i use
 
 "dein{{{
 " Vim起動完了時にインストール
@@ -57,10 +74,13 @@ if dein#load_state(s:plugin_dir)
   "call dein#add('dgryski/vim-godef')
   call dein#add('vim-jp/vim-go-extra')
   call dein#add('zchee/deoplete-go')
-  "call dein#add('scrooloose/syntastic') " too slow when saving, disable it for now
+  call dein#add('scrooloose/syntastic')
   call dein#add('scrooloose/nerdcommenter')
   call dein#add('nathanaelkane/vim-indent-guides')
   call dein#add('airblade/vim-gitgutter')
+  call dein#add('vim-scripts/nginx.vim')
+  call dein#add('ekalinin/Dockerfile.vim')
+  call dein#add('vim-airline/vim-airline')
 
   "
   " if plugin need to be built after install
@@ -77,10 +97,13 @@ if dein#load_state(s:plugin_dir)
 "        \ 'if' : has('lua')
 "        \ })
 
-  " 依存関係がある場合
+  " has dependency
   call dein#add('Shougo/unite.vim')
   call dein#add('ujihisa/unite-colorscheme', {'depends' : 'Shougo/unite.vim'})
   call dein#add('Shougo/vimfiler.vim', {'depends' : 'Shougo/unite.vim'})
+
+  "call dein#add('xolox/vim-misc')
+  "call dein#add('xolox/vim-lua-inspect', {'depends' : 'xolox/vim-misc'})
 
   " 手動でcall dein#source('プラグイン名')して使い始める場合
   "  call dein#add('Shougo/vimfiler', {'lazy' : 1})
@@ -115,10 +138,20 @@ endif
 
 filetype plugin indent on
 "}}}
+"
+" general {{{
+" move among buffers with CTRL
+map <C-L> :bnext<CR>
+"map <C-H> :bprev<CR>
+" }}}
+
+" vim-airline{{{
+let g:airline#extensions#tabline#enabled = 1
+" }}}
 
 "deoplete{{{
 let g:deoplete#enable_at_startup = 1
-" To make deoplete work properly, st python bin explicitly
+" To make deoplete work properly, set python bin explicitly
 let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 "}}}
@@ -142,20 +175,47 @@ au FileType go compiler go
 exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
 "}}}
 
-"syntax check{{{
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
+"lua {{{
+"}}}
 
-"let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['go'] }
-"let g:syntastic_go_checkers = ['go', 'golint']
-"let g:syntastic_go_checkers = ['go', 'golint', 'govet', 'errcheck']
-"let g:syntastic_go_checkers = ['golint']
-"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+"ruby {{{
+"}}}
+
+"python {{{
+"}}}
+
+"php {{{
+"}}}
+
+"js {{{
+"}}}
+
+"nginx {{{
+au BufRead,BufNewFile nginx.conf set ft=nginx
+au BufRead,BufNewFile nginx.conf.* set ft=nginx
+au BufRead,BufNewFile nginx.*.conf set ft=nginx
+"}}}
+
+"Docker {{{
+au BufRead,BufNewFile Dockerfile set ft=dockerfile
+"}}}
+
+"syntax check{{{
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
+
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['go'] }
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+
+let g:syntastic_lua_checkers = ["luac", "luacheck"]
+let g:syntastic_lua_luacheck_args = "--no-unused-args"
+
+let g:syntastic_ruby_mri_exec = '~/.rbenv/shims/ruby'
 "}}}
 
 "vimfiler {{{
@@ -163,12 +223,13 @@ exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
 let g:vimfiler_as_default_explorer = 1
 "セーフモードを無効にした状態で起動する
 let g:vimfiler_safe_mode_by_default = 0
-"現在開いているバッファのディレクトリを開く
-"nnoremap <silent> <space>fe :<C-u>VimFilerBufferDir -quit<CR>
-"現在開いているバッファをIDE風に開く
-nnoremap <silent> <space>fi :<C-u>VimFilerBufferDir -split -simple -winwidth=35 -no-quit<CR>
+"open it like IDE
+nnoremap <silent> <Leader>fi :<C-u>VimFilerBufferDir -split -simple -winwidth=35 -no-quit<CR>
 autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
 "autocmd VimEnter * VimFilerExplorer
+
+" remap q to hide and close buffer
+autocmd FileType vimfiler nmap <buffer> q <Plug>(vimfiler_exit)
 "}}}
 
 "Unite {{{
@@ -179,32 +240,34 @@ let g:unite_source_history_yank_enable = 1
 let g:unite_source_file_mru_limit = 100
 
 " Unite source list
-nnoremap <silent> <space>u :<C-u>Unite source<CR>
+nnoremap <silent> <Leader>us :<C-u>Unite source<CR>
 " bookmark list
-nnoremap <silent> <space>ubk :<C-u>Unite bookmark<CR>
+"nnoremap <silent> <Leader>>ubk :<C-u>Unite bookmark<CR>
 " buffer list
-nnoremap <silent> <space>ub :<C-u>Unite buffer<CR>
+nnoremap <silent> <Leader>ub :<C-u>Unite buffer<CR>
 " file list
-nnoremap <silent> <space>uf :<C-u>Unite file_rec/async<CR>
+nnoremap <silent> <Leader>uff :<C-u>Unite file<CR>
+" recursive file list
+nnoremap <silent> <Leader>uf :<C-u>Unite file_rec/async<CR>
 " register list
-"nnoremap <silent> <space>ur :<C-u>Unite -buffer-name=register register<CR>
+"nnoremap <silent> <Leader>ur :<C-u>Unite -buffer-name=register register<CR>
 " file recently used
-nnoremap <silent> <space>uh :<C-u>Unite file_mru<CR>
+nnoremap <silent> <Leader>uh :<C-u>Unite file_mru<CR>
 " combine mostly used one
-nnoremap <silent> <space>uu :<C-u>Unite buffer file_mru<CR>
+nnoremap <silent> <Leader>uu :<C-u>Unite buffer file_mru<CR>
 " content search (= grep)
-nnoremap <silent> <space>u/ :<C-u>Unite grep:<CR>
+nnoremap <silent> <Leader>u/ :<C-u>Unite grep:<CR>
 " yank history list
-nnoremap <silent> <space>uy :<C-u>Unite history/yank<CR>
+"nnoremap <silent> <Leader>uy :<C-u>Unite history/yank<CR>
 " show code outlines
-nnoremap <silent> <space>uo :<C-u>Unite outline<CR>
+nnoremap <silent> <Leader>uo :<C-u>Unite outline<CR>
 " ウィンドウを分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 " ウィンドウを縦に分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
 au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-" ESCキーを2回押すと終了する
+" ESCキーを2すと終了する
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 "}}}
@@ -217,4 +280,8 @@ au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vspli
 " ESCキーを2回押すと終了する
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+"}}}
+
+"nerdcommenter {{{
+
 "}}}

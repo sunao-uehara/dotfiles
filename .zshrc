@@ -25,6 +25,8 @@ alias ll="ls -l"
 alias la="ls -la"
 alias lh="ls -lh"
 alias v="nvim"
+alias vi="nvim"
+alias vim="nvim"
 
 # docker
 #alias evalde="eval $(docker-machine env default)"

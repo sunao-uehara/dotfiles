@@ -81,6 +81,7 @@ if dein#load_state(s:plugin_dir)
   call dein#add('vim-scripts/nginx.vim')
   call dein#add('ekalinin/Dockerfile.vim')
   call dein#add('vim-airline/vim-airline')
+  call dein#add('qpkorr/vim-bufkill')
 
   "
   " if plugin need to be built after install
@@ -141,8 +142,8 @@ filetype plugin indent on
 "
 " general {{{
 " move among buffers with CTRL
-map <C-L> :bnext<CR>
-"map <C-H> :bprev<CR>
+nmap <C-L> :bnext<CR>
+"nmap <C-H> :bprev<CR>
 " }}}
 
 " vim-airline{{{
@@ -258,7 +259,7 @@ nnoremap <silent> <Leader>uu :<C-u>Unite buffer file_mru<CR>
 " content search (= grep)
 nnoremap <silent> <Leader>u/ :<C-u>Unite grep:<CR>
 " yank history list
-"nnoremap <silent> <Leader>uy :<C-u>Unite history/yank<CR>
+nnoremap <silent> <Leader>uy :<C-u>Unite history/yank<CR>
 " show code outlines
 nnoremap <silent> <Leader>uo :<C-u>Unite outline<CR>
 " ウィンドウを分割して開く

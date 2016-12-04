@@ -4,7 +4,7 @@ set encoding=utf-8
 set history=700
 
 syntax enable
-colorscheme monokai
+colorscheme mymonokai
 
 "set lines=50 columns=50 
 

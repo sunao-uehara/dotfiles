@@ -41,7 +41,7 @@ set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
 
 "dein{{{
-" Vim起動完了時にインストール
+" install when vim is launched
 augroup PluginInstall
   autocmd!
   autocmd VimEnter * if dein#check_install() | call dein#install() | endif
@@ -73,7 +73,9 @@ if dein#load_state(s:plugin_dir)
   call dein#add('fatih/vim-go')
   "call dein#add('dgryski/vim-godef')
   call dein#add('vim-jp/vim-go-extra')
-  call dein#add('zchee/deoplete-go')
+  call dein#add('nsf/gocode')
+  "call dein#add('zchee/deoplete-go')
+  call dein#add('zchee/deoplete-go', {'build': 'make'})
   call dein#add('scrooloose/syntastic')
   call dein#add('scrooloose/nerdcommenter')
   call dein#add('nathanaelkane/vim-indent-guides')
@@ -82,6 +84,7 @@ if dein#load_state(s:plugin_dir)
   call dein#add('ekalinin/Dockerfile.vim')
   call dein#add('vim-airline/vim-airline')
   call dein#add('qpkorr/vim-bufkill')
+  call dein#add('vim-ruby/vim-ruby')
 
   "
   " if plugin need to be built after install
@@ -142,8 +145,8 @@ filetype plugin indent on
 "
 " general {{{
 " move among buffers with CTRL
-nmap <C-L> :bnext<CR>
-"nmap <C-H> :bprev<CR>
+nmap <C-J> :bnext<CR>
+nmap <C-K> :bprev<CR>
 " }}}
 
 " vim-airline{{{
@@ -151,15 +154,25 @@ let g:airline#extensions#tabline#enabled = 1
 " }}}
 
 "deoplete{{{
+set completeopt+=noinsert
+" deoplete.nvim recommend
+set completeopt+=noselect
+
 let g:deoplete#enable_at_startup = 1
 " To make deoplete work properly, set python bin explicitly
-let g:python_host_prog = '/usr/local/bin/python'
+"let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
+" Skip the check of neovim module
+let g:python3_host_skip_check = 1
+
+" automatically close preview window
+autocmd CompleteDone * pclose!
 "}}}
 
 "golang {{{
 set path+=$GOPATH/src/**
-let g:gofmt_command = 'goimports'
+"let g:gofmt_command = 'goimports'
+let g:gofmt_command = 'gofmt'
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_fields = 1
@@ -172,8 +185,11 @@ au BufWritePre *.go Fmt
 au BufNewFile,BufRead *.go set sw=4 noexpandtab ts=4 completeopt=menu,preview
 au FileType go compiler go
 
-" auto complete
-exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+" deoplete-go
+"exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'const', 'type', 'var']
+let g:deoplete#sources#go#use_cache = 1
 "}}}
 
 "lua {{{
@@ -211,7 +227,8 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['go'] }
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_go_checkers = ['go', 'gofmt', 'golint', 'errcheck', 'govet']
+"let g:syntastic_go_checkers = ['gofmt', 'golint', 'errcheck', 'govet']
 
 let g:syntastic_lua_checkers = ["luac", "luacheck"]
 let g:syntastic_lua_luacheck_args = "--no-unused-args"

@@ -69,3 +69,6 @@ precmd() {
 # neovim
 export XDG_CONFIG_HOME=~/.config
 
+
+# added by travis gem
+[ -f /Users/suehara/.travis/travis.sh ] && source /Users/suehara/.travis/travis.sh

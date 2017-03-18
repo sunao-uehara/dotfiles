@@ -301,5 +301,5 @@ au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 "}}}
 
 "nerdcommenter {{{
-
-"}}}
+  "<Leader>" + c +"<Space>"
+"}}

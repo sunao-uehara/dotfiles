@@ -18,7 +18,7 @@ setopt share_history      # 他のシェルのヒストリをリアルタイム�
 setopt hist_reduce_blanks # 余分なスペースを削除してヒストリに保存する
 
 # general
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/Cellar/mongodb/3.4.2/bin"
 
 # alias
 alias ll="ls -l"
@@ -36,7 +36,7 @@ alias vim="nvim"
 eval "$(rbenv init -)"
 
 # go
-export GOPATH=~/dev/repo
+export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
 
 # Search shell history with peco: https://github.com/peco/peco
@@ -71,4 +71,5 @@ export XDG_CONFIG_HOME=~/.config
 
 
 # added by travis gem
-[ -f /Users/suehara/.travis/travis.sh ] && source /Users/suehara/.travis/travis.sh
+[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
+export PATH="/usr/local/opt/node@6/bin:$PATH"

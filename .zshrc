@@ -18,25 +18,26 @@ setopt share_history      # 他のシェルのヒストリをリアルタイム�
 setopt hist_reduce_blanks # 余分なスペースを削除してヒストリに保存する
 
 # general
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/Cellar/mongodb/3.4.2/bin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:"
 
 # alias
 alias ll="ls -l"
 alias la="ls -la"
 alias lh="ls -lh"
-alias v="nvim"
-alias vi="nvim"
-alias vim="nvim"
+#alias v="nvim"
+#alias vi="nvim"
+#alias vim="nvim"
 
 # docker
 #alias evalde="eval $(docker-machine env default)"
 #evalde
 
 # ruby/rbenv
-eval "$(rbenv init -)"
+#eval "$(rbenv init -)"
+export PATH=/usr/local/opt/ruby/bin:$PATH
 
 # go
-export GOPATH=~/go
+export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
 # Search shell history with peco: https://github.com/peco/peco
@@ -62,14 +63,15 @@ fi
 #}
 
 # set iTerm tab title to the current dir
-precmd() {
-  echo -ne "\e]1;${PWD##*/}\a"
-}
+#precmd() {
+#  echo -ne "\e]1;${PWD##*/}\a"
+#}
 
 # neovim
-export XDG_CONFIG_HOME=~/.config
-
+#export XDG_CONFIG_HOME=~/.config
 
 # added by travis gem
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
-export PATH="/usr/local/opt/node@6/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"

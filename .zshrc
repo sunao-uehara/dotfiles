@@ -40,6 +40,16 @@ export PATH=/usr/local/opt/ruby/bin:$PATH
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
+# maven
+export PATH=$PATH:/usr/local/opt/apache-maven-3.5.2/bin
+
+# java
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+
+# gloud
+source /usr/local/opt/google-cloud-sdk/path.zsh.inc
+source /usr/local/opt/google-cloud-sdk/completion.zsh.inc
+
 # Search shell history with peco: https://github.com/peco/peco
 # Adapted from: https://github.com/mooz/percol#zsh-history-search
 if which peco &> /dev/null; then
@@ -76,3 +86,4 @@ fi
 export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"
 
+source ~/.env.list

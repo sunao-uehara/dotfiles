@@ -1,10 +1,10 @@
-"execute pathogen#infect()
-
 set encoding=utf-8
 set history=700
 
 syntax enable
-colorscheme mymonokai
+colorscheme monokai-tasty
+
+"set termguicolors
 
 "set lines=50 columns=50 
 

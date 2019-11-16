@@ -24,9 +24,9 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:"
 alias ll="ls -l"
 alias la="ls -la"
 alias lh="ls -lh"
-#alias v="nvim"
-#alias vi="nvim"
-#alias vim="nvim"
+alias vim="nvim"
+alias vi="nvim"
+alias oldvim="vim"
 
 # docker
 #alias evalde="eval $(docker-machine env default)"
@@ -37,6 +37,7 @@ alias lh="ls -lh"
 export PATH=/usr/local/opt/ruby/bin:$PATH
 
 # go
+export PATH=/usr/local/opt/go@1.11/bin:$PATH
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
@@ -86,4 +87,8 @@ fi
 export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"
 
-source ~/.env.list
+if [ $commands[kubectl] ]; then
+  source <(kubectl completion zsh)
+fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

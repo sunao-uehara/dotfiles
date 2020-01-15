@@ -37,7 +37,7 @@ alias oldvim="vim"
 export PATH=/usr/local/opt/ruby/bin:$PATH
 
 # go
-export PATH=/usr/local/opt/go@1.11/bin:$PATH
+export PATH=/usr/local/opt/go@1.12/bin:$PATH
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 

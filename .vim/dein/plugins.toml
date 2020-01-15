@@ -26,6 +26,9 @@ repo = 'scrooloose/nerdcommenter'
 repo = 'scrooloose/nerdtree'
 
 [[plugins]]
+repo = 'fatih/vim-go'
+
+[[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
 build = 'bash install.sh'
 rev = 'next'

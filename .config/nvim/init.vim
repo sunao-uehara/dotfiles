@@ -1,7 +1,8 @@
 " encode setting                                                                                                                                 
 set encoding=utf-8
 
-"syntax enable
+syntax enable
+"colorscheme molokai
 colorscheme monokai-tasty
 
 " editor setting
@@ -34,7 +35,13 @@ set hlsearch
 set incsearch
 
 " neovim
-let mapleader = ","
+let mapleader = " "
+
+au BufRead,BufNewFile *.go set filetype=go
+
+nnoremap <silent> <C-h> :bprev<CR>
+nnoremap <silent> <C-l> :bnext<CR>
+nnoremap <silent> <C-q> :bdelete<CR>
 
 " ------------------------------------------------------------
 " dein.vim set up
@@ -81,17 +88,15 @@ syntax enable
 "endif
 
 "End dein Scripts-------------------------
+
 " airline
 let g:airline#extensions#tabline#enabled = 1
 
 " fzf
 set rtp+=/usr/local/opt/fzf
-nnoremap <silent> ,f :GFiles<CR>
-nnoremap <silent> ,F :GFiles?<CR>
-nnoremap <silent> ,b :Buffers<CR>
-nnoremap <silent> ,l :BLines<CR>
-nnoremap <silent> ,h :History<CR>
-nnoremap <silent> ,m :Mark<CR>
+nnoremap <silent> <C-g><C-f> :GFiles<CR>
+nnoremap <silent> <C-a><C-g> :Ag<CR>
+nnoremap <silent> <C-h> :History<CR>
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
@@ -102,3 +107,14 @@ map <C-n> :NERDTreeToggle<CR>
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "let NERDTreeMapOpenInTab='<ENTER>'
 
+" golang
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+
+"let g:completeUnimported = true

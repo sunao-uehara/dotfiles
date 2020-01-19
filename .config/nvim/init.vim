@@ -14,17 +14,17 @@ syntax on
 set ai
 set si
 
-set number                                                      " 行番号表示
-set splitbelow                                                  " 水平分割時に下に表示
-set splitright                                                  " 縦分割時を右に表示
-set noequalalways                                               " 分割時に自動調整を無効化
-set wildmenu                                                    " コマンドモードの補完
+set number               " 行番号表示
+set splitbelow           " 水平分割時に下に表示
+set splitright           " 縦分割時を右に表示
+set noequalalways        " 分割時に自動調整を無効化
+set wildmenu             " コマンドモードの補完
 " cursor setting
-set ruler                                                       " カーソルの位置表示
-set cursorline                                                  " カーソルハイライト
+set ruler                " カーソルの位置表示
+set cursorline           " カーソルハイライト
 " tab setting
 set ts=2 sw=2 sts=2
-set expandtab                                                   " tabを複数のspaceに置き換え
+set expandtab            " tabを複数のspaceに置き換え
 
 set clipboard=unnamed
 set guioptions-=M "menubar
@@ -39,9 +39,16 @@ let mapleader = " "
 
 au BufRead,BufNewFile *.go set filetype=go
 
+" disable window quit shortcut
+map <C-w>q <Nop>
+map <C-w><C-q> <Nop>
+
 nnoremap <silent> <C-h> :bprev<CR>
 nnoremap <silent> <C-l> :bnext<CR>
 nnoremap <silent> <C-q> :bdelete<CR>
+"nnoremap <silent> <Leader>h :bprev<CR>
+"nnoremap <silent> <Leader>l :bnext<CR>
+"nnoremap <silent> <Leader>q :bdelete<CR>
 
 " ------------------------------------------------------------
 " dein.vim set up
@@ -95,8 +102,10 @@ let g:airline#extensions#tabline#enabled = 1
 " fzf
 set rtp+=/usr/local/opt/fzf
 nnoremap <silent> <C-g><C-f> :GFiles<CR>
-nnoremap <silent> <C-a><C-g> :Ag<CR>
-nnoremap <silent> <C-h> :History<CR>
+nnoremap <silent> <C-g> :Ag<CR>
+nnoremap <silent> <C-g><C-h> :History<CR>
+"nnoremap <silent> <Leader>h  :History<CR>
+nnoremap <silent> <Leader>b  :Buffers<CR>
 
 " deoplete
 let g:deoplete#enable_at_startup = 1

@@ -40,15 +40,14 @@ let mapleader = " "
 au BufRead,BufNewFile *.go set filetype=go
 
 " disable window quit shortcut
-map <C-w>q <Nop>
-map <C-w><C-q> <Nop>
+"map <C-w>q <Nop>
+"map <C-w><C-q> <Nop>
 
 nnoremap <silent> <C-h> :bprev<CR>
 nnoremap <silent> <C-l> :bnext<CR>
-nnoremap <silent> <C-q> :bdelete<CR>
-"nnoremap <silent> <Leader>h :bprev<CR>
-"nnoremap <silent> <Leader>l :bnext<CR>
-"nnoremap <silent> <Leader>q :bdelete<CR>
+nnoremap <silent> <C-p> :bprevious<CR>
+" close buffer without closing window
+map <Leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 
 " ------------------------------------------------------------
 " dein.vim set up

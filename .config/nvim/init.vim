@@ -43,9 +43,9 @@ au BufRead,BufNewFile *.go set filetype=go
 "map <C-w>q <Nop>
 "map <C-w><C-q> <Nop>
 
+" buffer short cut
 nnoremap <silent> <C-h> :bprev<CR>
 nnoremap <silent> <C-l> :bnext<CR>
-nnoremap <silent> <C-p> :bprevious<CR>
 " close buffer without closing window
 map <Leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 
@@ -100,9 +100,9 @@ let g:airline#extensions#tabline#enabled = 1
 
 " fzf
 set rtp+=/usr/local/opt/fzf
-nnoremap <silent> <C-g><C-f> :GFiles<CR>
+nnoremap <silent> <C-p> :GFiles<CR>
 nnoremap <silent> <C-g> :Ag<CR>
-nnoremap <silent> <C-g><C-h> :History<CR>
+nnoremap <silent> <C-r> :History<CR>
 "nnoremap <silent> <Leader>h  :History<CR>
 nnoremap <silent> <Leader>b  :Buffers<CR>
 
@@ -110,7 +110,7 @@ nnoremap <silent> <Leader>b  :Buffers<CR>
 let g:deoplete#enable_at_startup = 1
 
 " NerdTree
-map <C-n> :NERDTreeToggle<CR>
+map <C-t> :NERDTreeToggle<CR>
 " autocmd vimenter * NERDTree
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "let NERDTreeMapOpenInTab='<ENTER>'

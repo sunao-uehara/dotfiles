@@ -78,12 +78,6 @@ fi
 #  echo -ne "\e]1;${PWD##*/}\a"
 #}
 
-# neovim
-#export XDG_CONFIG_HOME=~/.config
-
-# added by travis gem
-[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
-
 export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"
 

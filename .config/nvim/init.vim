@@ -103,6 +103,7 @@ set rtp+=/usr/local/opt/fzf
 nnoremap <silent> <C-p> :GFiles<CR>
 nnoremap <silent> <C-g> :Ag<CR>
 nnoremap <silent> <C-r> :History<CR>
+"nnoremap <silent> <Leader>h  :History<CR>
 nnoremap <silent> <Leader>b  :Buffers<CR>
 
 " deoplete
